@@ -1,0 +1,131 @@
+/* 
+    Title: cite.css
+    Author: Conner Shockley
+    Date: 1/12/2021
+    Description: CSS styling for the landing page(index.html).
+*/
+
+/*
+    Applies the global font styles
+*/
+body {
+    font-family: 'Oswald', Verdana, Arial, sans-serif;
+}
+
+/*
+    Styling for the container ID, sets top margin to 50px
+    and the left/right margins to 100px.
+*/
+#container {
+    margin-top: 50px;
+    margin-left: 100px;
+    margin-right: 100px;
+    padding: 10px;
+}
+
+/* 
+    Assign-container class styling.
+*/
+.assign-container {
+    padding: 10px;
+}
+
+/* 
+    Assign-content class styling.
+*/
+.assign-content {
+    width: 600px;
+    margin: 3% auto 0;
+}
+
+
+/* 
+    Assign-results-text class styling.
+*/
+.assign-results-text {
+    text-align: center;
+    font-size: 28px;
+}
+
+/*
+    Styling for app-header.
+*/
+.app-header {
+    font-size: 28px;
+    text-align: center;
+}
+
+/* 
+    Styling for the results-container.
+*/
+#results-container {
+    width: 600px;
+    margin: 3% auto 0;
+}
+
+/* 
+    Adds width of 100% to the .full-width class
+*/
+.full-width {
+    width: 100%;
+}
+
+/* 
+    Form styling; changes display to inline-grid and the grid-template-columns to auto.
+*/
+.form {
+    display: inline-grid;
+    grid-template-columns: auto;
+}
+
+/* 
+    Adds padding of 20px.
+*/
+.form-field {
+    padding: 20px;
+}
+
+/*
+    Styling for the return-home class; applies color and removes text-decoration.
+*/
+.return-home {
+    color: #4f3674;
+    text-decoration: none;
+}
+
+/*
+    Changes text and background color on hover.
+*/
+.return-home:hover {
+    color: #4f3674;
+    background-color: #d6a800;
+}
+
+/* 
+    Changes color once link has been visited.
+*/
+.return-home:visited {
+    color: #3c275a;
+}
+
+/* 
+    Styling for icon-mode
+*/
+#icon-mode:hover {
+    cursor: pointer;
+}
+
+/* 
+    Icon-text styling to add left padding.
+*/
+#icon-text {
+    padding-left: 10px;
+}
+
+/* 
+    Icon styling for theme toggle switch, floats right.
+*/
+.pull-right {
+    float: right;
+}
+
