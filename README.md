@@ -3,4 +3,3 @@
 ## Contributors
 * Conner Shockley
 * Richard Krasso
-JavaScript II course content
