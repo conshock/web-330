@@ -1,3 +1,10 @@
+/** 
+    Title.theme.css
+    Author: Conner Shockley
+    Date:3/15/2021
+    Description: Styling for the theme for the WEB-330 pages.
+*/
+
 /*
     Applies shadow and transition effects to the .card class.
 */
@@ -51,9 +58,15 @@
 }
 
 /* 
+    Styles the icon to be inline with the rest of the container.
+*/
+i {
+    margin-right: 110px
+}
+
+/* 
     Color and background color applied to .btn-primary.
 */
-
 .btn-primary {
     background-color: var(--btn-background-color);
     color: var(--btn-color);
@@ -148,7 +161,7 @@ body {
 }
 
 /* 
-    Anchor tag styling. Set to JS variables.
+    Anchor tag styling. Set to JS variables based on theme.
 */
 a {
     color: var(--anchor-color);
@@ -156,7 +169,7 @@ a {
 }
 
 /* 
-
+    Anchor tag styling on hover. Set to JS variables based on theme.
 */
 a:hover {
     background-color: var(--anchor-hover-background-color);
@@ -164,7 +177,7 @@ a:hover {
 }
 
 /* 
-
+    H1 styles that changes based on the set theme.
 */
 h1 {
     color: var(--heading-color);
@@ -173,6 +186,10 @@ h1 {
     border: solid 1px var(--h1-border-color);
 }
 
+
+/* 
+    H1, H2, H3, H4 styles that changes based on the set theme.
+*/
 h2, h3, h4 {
     color: var(--heading-color);
     background-color: var(--heading-background-color);
