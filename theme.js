@@ -20,9 +20,9 @@ console.log(`The current theme is the ${document.body.classList}.`);
 function setDefaultTheme()
 {
     // Each variable below is pulling from the localStorage of the browser to determine the theme.
-    const theme = localStorage.getItem("colorTheme");
-    const iconMode = localStorage.getItem("iconMode");
-    const iconText = localStorage.getItem("iconText");
+    const theme = localStorage.getItem("colorTheme") || "light-theme";
+    const iconMode = localStorage.getItem("iconMode") || "fa-toggle-off";
+    const iconText = localStorage.getItem("iconText") || "Light Mode";
 
     // The 3 lines below set the theme, iconMode, and iconText based on the user's browser storage.
     document.body.classList.value = theme;
