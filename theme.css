@@ -188,7 +188,7 @@ h1 {
 
 
 /* 
-    H1, H2, H3, H4 styles that changes based on the set theme.
+    H2, H3, H4 styles that changes based on the set theme.
 */
 h2, h3, h4 {
     color: var(--heading-color);
