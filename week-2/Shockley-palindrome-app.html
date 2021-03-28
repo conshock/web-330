@@ -20,84 +20,109 @@
     
 
 </head>
+    <!-- Declaring the default theme of the page. -->
     <body class="light-theme">
-
-        <!-- <i onclick="toggleMode(this)" id="icon-mode" class="fa fa-toggle-off pull-right" style="font-size: 28px;">
-            <span id="icon-text"></span>
-        </i> -->
-
-        <div class="container">
-            
+        <!-- Div that contains the entire page. -->
+        <div id="container">
+            <!-- Title of application. -->
             <div class="app-header">
                 Welcome to the Palindrome App!
             </div>
-
-            <div class="card">
-                <div class="card-title">Palindrome Checker</div>
-                <div class="form">
-                    
-                    <div class="form-field">
-                        Phrase Value:
-                        <input id="txtPhrase" type="text">
-                    </div>
-                    
-                    <div class="form-field">
-                        <button class="btn btn-primary full-width" id="btnCheckPhrase" onclick="checkString()">Check Phrase</button>
+            <!-- Div that contains the input card. -->
+            <div class="assign-content">
+                <div class="card">
+                    <!-- Card title. -->
+                    <div class="card-title">Palindrome Checker</div>
+                    <!-- Card content with each form field. -->
+                    <div class="card-content">
+                        <div class="form">
+                            <div class="form-field">
+                                Phrase Value:
+                                <input id="txtPhrase" type="text">
+                            </div>
+                            <!-- Button that connects to the checkString() function. -->
+                            <div class="form-field">
+                                <button class="btn btn-primary full-width" id="btnCheckPhrase" onclick="checkString()">Check Phrase</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <!-- Link that returns to web-330 homepage -->
+                <a class="return-home" href="../index.html">Return</a>
             </div>
-            <a class="return-home" href="../index.html">Return</a>
 
-            <div class="card">
-                <div class="card-title">Palindrome Results</div>
-                <div class="card-content" id="assign-results">
-
+            <!-- Card with results of the user's input. -->
+            <div class="assign-content">
+                <div class="card">
+                    <div class="card-title">Palindrome Results</div>
+                    <!-- The assign-results div displays the date, phrase, reversed phrase, and phrase length. -->
+                    <div class="card-content" id="assign-results"></div>
+                    <!-- The assign-results-header div contains the string that tells us whether the phrase is a palindrome or not. -->
+                    <div id="assign-results-header" class="assign-results-text"></div>
                 </div>
             </div>
 
         </div>
 
+        <script type="application/javascript" src="../theme.js"></script>
         <script>
-
+            // This function gets today's date.
             function getTodaysDate() 
             {
-                let today = new Date();
-                let date = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
-                document.getElementById("assign-results").innerHTML = `Date: ${date}`;
-                return date;
+                return new Date().toLocaleDateString("en-US");
             }
     
+            // This function will get the length of a string passed through it.
             function getLength(string) 
             {
                 let stringLength = string.length;
                 return stringLength;
             }
     
+            // This function will reverse a string that is passed through it.
             function reverse(string) 
             {
                 let splitString = string.split("")
                 let reverseString = splitString.reverse();
                 let combine = reverseString.join("");
-                return combine;
+                return combine.toLowerCase();
             }
     
-            function isPalindrome()
+            // This function determines if a string is equal to it's reversed-self and then displays the result.
+            function isPalindrome(string)
             {
-                reverse();
-                if (combine === string) {
-                    return true;
+                let result = '';
+                if (string === reverse(string)) {
+                    result = `${string} is a palindrome!`;
                 } else {
-                    return false;
+                    result = `${string} is not a palindrome!`;
                 }
+                document.getElementById("assign-results-header").innerHTML = result;
             }
     
+            // This function calls many functions so that it can display the information in the results area of the page.
             function checkString()
             {
-                getTodaysDate(); 
-                let txtString = document.getElementById("txtPhrase").value;
-                document.getElementById("assign-results").innerHTML = `Original Phrase: ${txtString}`;
-                
+                // txtPhrase is whatever the user inputs into the txtPhrase form-field.
+                let txtPhrase = document.getElementById("txtPhrase").value.toLowerCase();            
+                // The today variable calls getTodaysDate() which will get the current today.
+                const today = getTodaysDate();
+                /**
+                   The len variable calls the getLength() function and passes through txtPhrase to determine how long
+                   the string is that the user inputs into the txtPhrase form-field.    
+                */
+                const len = getLength(txtPhrase);
+                // reversedPhrase reverse the string the user inputs into the txtPhrase form-field.
+                let reversedPhrase = reverse(txtPhrase);
+                // The header variable combines the above variables into a string that gets added to the HTML.
+                let header = "Date: " + today + "<br>" + "Original Phrase: " + txtPhrase + "<br>" + 
+                             "Reversed Phrase: " + reversedPhrase + "<br>" + "Phrase Length: " + len;
+                // Displays header to the HTML.
+                document.getElementById("assign-results").innerHTML = header;
+                // We call the isPalindrome() function and pass through the string that the user inputs into the txtPhrase form-field.
+                isPalindrome(txtPhrase);                
             }
+            
             
         </script>
     
