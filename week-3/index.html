@@ -23,7 +23,7 @@
     <body class="light-theme">
 
         <div class="container">
-            <h1 class="app-header">Welcome to the Restaurant App!</h1>
+            <div class="app-header">Welcome to the Restaurant App!</div>
 
             <div class="assign-content">
                 <div class="card">
@@ -31,26 +31,24 @@
                     <div class="card-title">Restaurant Menu</div>
                     <!-- Main Card content. -->
                     <div class="card-content">
-
-
                         
                         <div class="card">
                             <div class="card-title">Beverages</div>
-                            <div class="card content">
-                                <label for="1">
-                                    <input type="checkbox" id="1">checkbox</input>
+                            <div class="card content" id="beverages">
+                                <label for="soda">
+                                    <input type="checkbox" id="soda">Soda($3.30)</input>
                                 </label>
                                 <br>
-                                <label for="1">
-                                    <input type="checkbox" id="1">checkbox</input>
+                                <label for="tea">
+                                    <input type="checkbox" id="tea">Sweet Tea ($3.30)</input>
                                 </label>
                                 <br>
-                                <label for="1">
-                                    <input type="checkbox" id="1">checkbox</input>
+                                <label for="coffee">
+                                    <input type="checkbox" id="coffee">Iced Coffee ($2.49)</input>
                                 </label>
                                 <br>
-                                <label for="1">
-                                    <input type="checkbox" id="1">checkbox</input>
+                                <label for="water">
+                                    <input type="checkbox" id="water">Bottled Water ($2.15)</input>
                                 </label>
                             </div>
                         </div>
@@ -59,21 +57,21 @@
 
                         <div class="card">
                             <div class="card-title">Appetizers</div>
-                            <div class="card content">
-                                <label for="1">
-                                    <input type="checkbox" id="1">checkbox</input>
+                            <div class="card content" id="appetizers">
+                                <label for="nachos">
+                                    <input type="checkbox" id="nachos">Nachos ($6.60)</input>
                                 </label>
                                 <br>
-                                <label for="1">
-                                    <input type="checkbox" id="1">checkbox</input>
+                                <label for="chips">
+                                    <input type="checkbox" id="chips">Chips and Salsa ($5.50)</input>
                                 </label>
                                 <br>
-                                <label for="1">
-                                    <input type="checkbox" id="1">checkbox</input>
+                                <label for="pretzel">
+                                    <input type="checkbox" id="pretzel">Pretzel with Cheese ($8.80)</input>
                                 </label>
                                 <br>
-                                <label for="1">
-                                    <input type="checkbox" id="1">checkbox</input>
+                                <label for="pickles">
+                                    <input type="checkbox" id="pickles">Fried Pickles ($8.25)</input>
                                 </label>
                             </div>
                         </div>
@@ -82,21 +80,21 @@
 
                         <div class="card">
                             <div class="card-title">Main Courses</div>
-                            <div class="card content">
-                                <label for="1">
-                                    <input type="checkbox" id="1">checkbox</input>
+                            <div class="card content" id="main-courses">
+                                <label for="tacos">
+                                    <input type="checkbox" id="tacos">Street Tacos ($9.70)</input>
                                 </label>
                                 <br>
-                                <label for="1">
-                                    <input type="checkbox" id="1">checkbox</input>
+                                <label for="wings">
+                                    <input type="checkbox" id="wings">Boneless Wings ($12.80)</input>
                                 </label>
                                 <br>
-                                <label for="1">
-                                    <input type="checkbox" id="1">checkbox</input>
+                                <label for="burger">
+                                    <input type="checkbox" id="burger">Cheese Burger with Fries ($12.65)</input>
                                 </label>
                                 <br>
-                                <label for="1">
-                                    <input type="checkbox" id="1">checkbox</input>
+                                <label for="wrap">
+                                    <input type="checkbox" id="wrap">Chicken Wrap with Salad ($9.65)</input>
                                 </label>
                             </div>
                         </div>
@@ -105,28 +103,96 @@
 
                         <div class="card">
                             <div class="card-title">Desserts</div>
-                            <div class="card content">
-                                <label for="1">
-                                    <input type="checkbox" id="1">checkbox</input>
+                            <div class="card content" id="desserts">
+                                <label for="cream">
+                                    <input type="checkbox" id="cream">Ice Cream ($4.30)</input>
                                 </label>
                                 <br>
-                                <label for="1">
-                                    <input type="checkbox" id="1">checkbox</input>
+                                <label for="cake">
+                                    <input type="checkbox" id="cake">Chocolate Cake ($5.40)</input>
                                 </label>
                                 <br>
-                                <label for="1">
-                                    <input type="checkbox" id="1">checkbox</input>
+                                <label for="pie">
+                                    <input type="checkbox" id="pie">Apple Pie ($3.80)</input>
                                 </label>
                                 <br>
-                                <label for="1">
-                                    <input type="checkbox" id="1">checkbox</input>
-                                </label>
+                                <button id="btnOrder" class="btn btn-primary">Place Order</button>
                             </div>
+                            
                         </div>
 
                     </div>
                 </div>
+                <!-- Link that returns to web-330 homepage -->
+                <a class="return-home" href="../index.html">Return</a>
+
+                <div class="card">
+                    <div class="card-title">Order Summary</div>
+                    <div class="card-content assign-results-text" id="order-total"></div>
+                </div>
             </div>
         </div>
+
+        
+        <script type="application/javascript" src="../theme.js"></script>
+        <script type="module">
+
+            import { Bill, Beverage, Appetizer, MainCourse, Dessert } from "./index.js"
+
+            document.getElementById("btnOrder").addEventListener("click", myFunction);
+
+            function myFunction() {
+
+                const mainCoursesEl = document.getElementById("main-courses");
+                const mainCourses = mainCoursesEl.getElementsByTagName("input");
+
+                const appetizerEl = document.getElementById("appetizers");
+                const appetizers = appetizerEl.getElementsByTagName("input");
+
+                const beveragesEl = document.getElementById("beverages");
+                const beverages= beveragesEl.getElementsByTagName("input");
+
+                const dessertsEl = document.getElementById("desserts");
+                const desserts = dessertsEl.getElementsByTagName("input");
+
+                let newBill = new Bill
+                {
+                    for (let mainCourse of mainCourses)
+                    {
+                        if (mainCourse.checked)
+                        {
+                            bill.addMainCourse(new MainCourse(mainCourse.name, mainCourse.value));
+                        }
+                    }
+
+                    for (let appetizer of appetizers)
+                    {
+                        if (appetizers.checked)
+                        {
+                            bill.addAppetizer(new Appetizer(appetizer.name, appetizer.value));
+                        }
+                    }
+
+                    for (let beverage of beverages)
+                    {
+                        if (beverages.checked)
+                        {
+                            bill.addBeverage(new Beverage(beverage.name, beverage.value));
+                        }
+                    }
+
+                    for (let dessert of desserts)
+                    {
+                        if (desserts.checked)
+                        {
+                            bill.addDessert(new Dessert(dessert.name, dessert.value));
+                        }
+                    }
+                document.getElementById("order-total").innerHTML = getTotal();
+                }
+            }
+            
+
+        </script>
     </body>
 </html>
