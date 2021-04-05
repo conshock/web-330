@@ -117,8 +117,7 @@
                                 </label>
                                 <br>
                                 <button id="btnOrder" class="btn btn-primary">Place Order</button>
-                            </div>
-                            
+                            </div>  
                         </div>
 
                     </div>
@@ -135,13 +134,14 @@
 
         
         <script type="application/javascript" src="../theme.js"></script>
+
         <script type="module">
 
             import { Bill, Beverage, Appetizer, MainCourse, Dessert } from "./index.js"
 
-            document.getElementById("btnOrder").addEventListener("click", myFunction);
+            document.getElementById("btnOrder").addEventListener("click", addMenuItems);
 
-            function myFunction() {
+            function addMenuItems() {
 
                 const mainCoursesEl = document.getElementById("main-courses");
                 const mainCourses = mainCoursesEl.getElementsByTagName("input");
@@ -155,7 +155,7 @@
                 const dessertsEl = document.getElementById("desserts");
                 const desserts = dessertsEl.getElementsByTagName("input");
 
-                let newBill = new Bill
+                let bill = new Bill();
                 {
                     for (let mainCourse of mainCourses)
                     {
@@ -188,8 +188,10 @@
                             bill.addDessert(new Dessert(dessert.name, dessert.value));
                         }
                     }
-                document.getElementById("order-total").innerHTML = getTotal();
+                
                 }
+                getTotal();
+                document.getElementById("order-total").innerHTML = getTotal();
             }
             
 

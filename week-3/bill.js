@@ -61,8 +61,8 @@ export class Bill
         {
             total += parseFloat(dessert.price);
         })
-
-        return total;
+        document.getElementById("order-total").innerHTML = total;
+        
     }
 
 }
