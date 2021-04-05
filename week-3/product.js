@@ -10,9 +10,9 @@
 
 export class Product
 {
-    constructor(home, price)
+    constructor(name, price)
     {
-        this.home = home;
+        this.name = name;
         this.price = price;
     }
 }

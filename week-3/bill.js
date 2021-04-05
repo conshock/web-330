@@ -12,10 +12,10 @@ export class Bill
 {
     constructor(_beverages, _appetizers, _mainCourses, _desserts)
     {
-        _beverages = [];
-        _appetizers = [];
-        _mainCourses = [];
-        _desserts = [];
+        this._beverages = [];
+        this._appetizers = [];
+        this._mainCourses = [];
+        this._desserts = [];
     }
     
     addBeverage(beverage)
@@ -45,24 +45,23 @@ export class Bill
         let beverageTotal = this._beverages.forEach(function(beverage)
         {
             total += parseFloat(beverage.price);
-        })
+        });
 
         let appetizerTotal = this._apmainCourse.forEach(function(appetizer)
         {
             total += parseFloat(appetizer.price);
-        })
+        });
 
         let mainCourseTotal = this._mainCourses.forEach(function(mainCourse)
         {
             total += parseFloat(mainCourse.price);
-        })
+        });
 
         let dessertTotal = this._desserts.forEach(function(dessert)
         {
             total += parseFloat(dessert.price);
-        })
-        console.log(total);
-        
+        });
+        return total.toFixed(2);
     }
 
 }
