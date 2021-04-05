@@ -21,11 +21,16 @@
 
 
 </head>
+
+    <!-- Body theme set to light-theme by default. Changes based on theme.js. -->
     <body class="light-theme">
 
+        <!-- Div containing all content -->
         <div class="container">
+            <!-- Welcome text. -->
             <div class="app-header">Welcome to the Restaurant App!</div>
 
+            <!-- Main content of the assignment. -->
             <div class="assign-content">
                 <div class="card">
                     <!-- Main Card title. -->
@@ -33,7 +38,9 @@
                     <!-- Main Card content. -->
                     <div class="card-content">
                         
+                        <!-- Side-by-side displays in grid for better formatting. -->
                         <div class="side-by-side">
+                            <!-- Beverages card with menu items and prices. -->
                             <div class="cards">
                                 <div class="card-title">Beverages</div>
                                 <div class="card content" id="beverages">
@@ -55,6 +62,7 @@
                                 </div>
                             </div>
                         
+                            <!-- Appetizers card with menu items and prices. -->
                             <div class="cards">
                                 <div class="card-title">Appetizers</div>
                                 <div class="card content" id="appetizers">
@@ -77,8 +85,9 @@
                             </div>
                         </div>
 
-
+                        <!-- Second side-by-side div. Side-by-side displays in grid for better formatting. -->
                         <div class="side-by-side">
+                            <!-- MainCourses card with menu items and prices. -->
                             <div class="cards">
                                 <div class="card-title">Main Courses</div>
                                 <div class="card content" id="main-courses">
@@ -100,6 +109,7 @@
                                 </div>
                             </div>
                         
+                            <!-- Desserts card with menu items and prices. -->
                             <div class="cards">
                                 <div class="card-title">Desserts</div>
                                 <div class="card content" id="desserts">
@@ -115,7 +125,8 @@
                                         <input type="checkbox" id="pie" value="3.80">Apple Pie ($3.80)</input>
                                     </label>
                                     <br>
-                                    <button id="btnOrder" class="btn btn-primary">Place Order</button>
+                                    <!-- Button binds to an onclick function that tallies your total price. -->
+                                    <button id="btnOrder" class="btn btn-primary full-width">Place Order</button>
                                 </div>
                             </div>
                         </div>
@@ -124,8 +135,10 @@
                 <!-- Link that returns to web-330 homepage -->
                 <a class="return-home" href="../index.html">Return</a>
 
+                <!-- Results card -->
                 <div class="card">
                     <div class="card-title">Order Summary</div>
+                    <!-- This div will display your total onclick of the previous button. -->
                     <div class="card-content assign-results-text" id="order-total"></div>
                 </div>
             </div>
@@ -136,24 +149,33 @@
 
         <script type="module">
 
+
+            // Importing classes from the index.js file.
             import { Bill, Beverage, Appetizer, MainCourse, Dessert } from "./index.js"
 
-            document.getElementById("btnOrder").onclick = function {
+            // Binding onclick function to btnOrder element.
+            document.getElementById("btnOrder").onclick = function() {
 
+                // Sets up variables for main-course input.
                 const mainCoursesEl = document.getElementById("main-courses");
                 const mainCourses = mainCoursesEl.getElementsByTagName("input");
 
+                // Sets up variables for appetizer input.
                 const appetizerEl = document.getElementById("appetizers");
                 const appetizers = appetizerEl.getElementsByTagName("input");
 
+                // Sets up variables for beverage input.
                 const beveragesEl = document.getElementById("beverages");
                 const beverages= beveragesEl.getElementsByTagName("input");
 
+                // Sets up variables for dessert input.
                 const dessertsEl = document.getElementById("desserts");
                 const desserts = dessertsEl.getElementsByTagName("input");
 
+                // New Bill class instance created.
                 let bill = new Bill();
                 
+                    // For loop with nested if statement that adds price of main-course menu items to total price.
                     for (let mainCourse of mainCourses)
                     {
                         if (mainCourse.checked)
@@ -162,31 +184,38 @@
                         }
                     }
 
+                    // For loop with nested if statement that adds price of appetizer menu items to total price.
                     for (let appetizer of appetizers)
                     {
-                        if (appetizers.checked)
+                        if (appetizer.checked)
                         {
                             bill.addAppetizer(new Appetizer(appetizer.name, appetizer.value));
                         }
                     }
 
+                    // For loop with nested if statement that adds price of beverage menu items to total price.
                     for (let beverage of beverages)
                     {
-                        if (beverages.checked)
+                        if (beverage.checked)
                         {
                             bill.addBeverage(new Beverage(beverage.name, beverage.value));
                         }
                     }
 
+                    // For loop with nested if statement that adds price of dessert menu items to total price.
                     for (let dessert of desserts)
                     {
-                        if (desserts.checked)
+                        if (dessert.checked)
                         {
                             bill.addDessert(new Dessert(dessert.name, dessert.value));
                         }
                     }
 
+                    // Sets total to the total values of the bill instance.
                     let total = bill.getTotal();
+
+                    // Binds the order-total element to display "Your order total is (total)"
+                    document.getElementById("order-total").innerHTML = `Your order total is ${total}`;
             }
 
 
