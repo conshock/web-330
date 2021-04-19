@@ -36,9 +36,13 @@ export class ShoppingCart
     }
 
 
-    myIterator() {
-        for (let  of this._products) {
-            
+    * myIterator() {
+
+        for (let product of this._products) {
+            document.getElementById('productID').innerHTML = 'testid';
+            document.getElementById('productName').innerHTML = 'testname';
+            document.getElementById('productValue').innerHTML = 'testvalue';
+            yield product;
         }
     }
 }

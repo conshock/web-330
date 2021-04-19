@@ -63,9 +63,10 @@
         <script type="module">
 
             // Import classes from other JS files.
+            import { CartComponent } from "./cart-component.js";
             import { Product } from "./product.js";
             import { ShoppingCart } from "./shopping-cart.js";
-            import { CartComponent } from "./cart-component.js";
+            
 
             // New ShoppingCart object.
             let shoppingCart = new ShoppingCart();
@@ -95,19 +96,15 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Price</th>`;
-
-                for (let product of productList) {
-                    let tableData = `
-                    <tr>
-                        <td>${product.name}</td>
-                        <td>${product.value}</td>
-                    </tr>`;
-                    document.getElementById('shoppingCart').innerHTML = tableData;
-                }
+                    shoppingCart.myIterator();
+                    
+                
 
                 document.getElementById('shoppingCart').innerHTML = cartDisplayTable;
             }
 
+
+            // This function adds a number to the shopping cart item list.
             function setCartCount() 
             {
                 document.getElementById('cart-count').innerHTML = shoppingCart.count();
