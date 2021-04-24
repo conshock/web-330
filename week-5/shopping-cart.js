@@ -14,7 +14,7 @@
 export class ShoppingCart
 {
     // Constructor with only 1 parameter: _products.
-    constructor(_products)
+    constructor()
     {
         // _products is equal to an empty array.
         this._products = [];
@@ -23,10 +23,7 @@ export class ShoppingCart
     // Count() counts how many objects are added to the 
     count()
     {
-        // Log the array to the console to make sure products are being pushed properly.
-        console.log(`The products array contains: [${this._products}]`);
         return this._products.length;
-        
     }
 
     // addProduct() function adds a product object to the empty _products array.
@@ -36,13 +33,11 @@ export class ShoppingCart
     }
 
 
-    * myIterator() {
-
-        for (let product of this._products) {
-            document.getElementById('productID').innerHTML = 'testid';
-            document.getElementById('productName').innerHTML = 'testname';
-            document.getElementById('productValue').innerHTML = 'testvalue';
-            yield product;
+    *[Symbol.iterator]()
+        {   
+            for(let product of this._products)
+            {
+                yield product;
+            }
         }
-    }
 }

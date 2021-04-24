@@ -50,9 +50,8 @@
 
             <div class="card">
                 <div class="card-title">Shopping Cart</div>
-                <div class="card-content">
-                    <table id="shoppingCart">
-                    <!-- Table gets filled with after cart icon is clicked on. -->
+                <div class="card-content" id="shoppingCart">
+                   
                 </div>
             </div>
 
@@ -84,21 +83,29 @@
 
                 // If-else statement to add products to the .
                 if (product != "--Select--") {
-                    shoppingCart.addProduct(product, productValue);
+                    shoppingCart.addProduct(new Product(product, productValue));
                     setCartCount();
                     alert(`${product} was added to your shopping cart!`);
+                    productList.value = "Select";
                 }
             }
 
             document.getElementById("cartIcon").onclick = function() 
             {
-                let cartDisplayTable = `
-                <th>ID</th>
-                <th>Name</th>
-                <th>Price</th>`;
-                    shoppingCart.myIterator();
+                let cartDisplayTable = `<table class="table"><tr><th>ID</th><th>Name</th><th>Price</th>`;
                     
-                
+                for (let _products of shoppingCart) 
+                {
+                    cartDisplayTable += `
+                    <tr>
+                        <td>${_products.id}</td>
+                        <td>${_products.name}</td>
+                        <td>${_products.price}</td>
+                    </tr>`
+                    console.log(_products);
+                }
+                    
+                cartDisplayTable += `</table>`
 
                 document.getElementById('shoppingCart').innerHTML = cartDisplayTable;
             }
@@ -109,6 +116,7 @@
             {
                 document.getElementById('cart-count').innerHTML = shoppingCart.count();
             }
+        
         </script>
 
 
