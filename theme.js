@@ -26,8 +26,8 @@ function setDefaultTheme()
 
     // The 3 lines below set the theme, iconMode, and iconText based on the user's browser storage.
     document.body.classList.value = theme;
-    document.getElementById("icon-mode").classList.add(iconMode);
-    document.getElementById("icon-text").innerHTML = iconText;
+    // document.getElementById("icon-mode").classList.add(iconMode);
+    // document.getElementById("icon-text").innerHTML = iconText;
 }
 
 // This is the onclick function that toggles the theme and sets the default theme.

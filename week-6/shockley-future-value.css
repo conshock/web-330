@@ -1,0 +1,26 @@
+/** 
+    Title. shockley-future-value.css
+    Author: Conner Shockley
+    Date:4/25/2021
+    Description: Styling for the Future Value application.
+*/
+
+/* 
+    Styling for danger text.
+*/
+.danger {
+    float: right;
+    color: #df546a;
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin:0 0;
+}
+
+/* 
+    Styling for form labels. 
+*/
+.form-label {
+    display: inline-block;
+    padding-top: 1rem;
+}
+
