@@ -13,6 +13,16 @@
     color: #df546a;
     font-size: 12px;
     letter-spacing: 2px;
+}
+
+/* 
+    Styling for danger text.
+*/
+.danger-right {
+    float: right;
+    color: #df546a;
+    font-size: 12px;
+    letter-spacing: 2px;
     text-align: right;
 }
 
