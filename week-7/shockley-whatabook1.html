@@ -50,19 +50,25 @@
         <script type="application/javascript" src="../theme.js"></script> 
         <script>
 
-            window.addEventListener('DOMContentLoaded', (event) => {
+            // XML data populates table on HTML document load.
+            window.addEventListener('DOMContentLoaded', function(event) {
                 console.log('DOM fully loaded and parsed');
 
+                // Declare that the filename is books.xml.
                 let fileName = 'books.xml';
 
+                // Fetching books.xml.
                 fetch(fileName)
                 .then(res => res.text())
                 .then(data => {
                     
                     let domParser = new DOMParser();
-                    let xmlBooks = domParser.parseFromString(data, "application/xml")
+                    let xmlBooks = domParser.parseFromString(data, "text/xml")
 
+                    // LoadBooks loads data from the XML file.
                     loadBooks(xmlBooks);
+
+                    // AddISBNClickEvents adds click events to the ISBN links.
                     addISBNClickEvents();
                 })
             });
@@ -70,18 +76,38 @@
             // Function that loads books from the XML file into the table.
             function loadBooks(xml) {
 
+                // Declare books variable by pulling book from books in XML file.
                 let books = xml.getElementsByTagName("book");
+
+                // Initial table header.
                 let tableData = `
-                <table>
-                    <th id='bookTable' class='table'></th>`;
+                <table  id='bookTable' class='table'>
+                    <thead>
+                        <th>ISBN</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Pages</th>
+                        <th>Authors</th>
+                    </thead>
+                    <tbody>`;
                 
                 // For-of loop that populates the xml data into the table.
                 for (let book of books) {
+
                     let isbn = book.getElementsByTagName("isbn")[0].childNodes[0].nodeValue;
+                    let title = book.getElementsByTagName("title")[0].childNodes[0].nodeValue;
+                    let description = book.getElementsByTagName("description")[0].childNodes[0].nodeValue;
+                    let pages = book.getElementsByTagName("pages")[0].childNodes[0].nodeValue;
+                    let authors = book.getElementsByTagName("authors")[0].childNodes[0].nodeValue;
+
+                    // Loops through this string and fills data from the XML file.
                     tableData += `
                     <tr>
                         <td data-value="ISBN">
                             <a href="#" class="isbn-link">${isbn}</a>
+                        </td>
+                        <td data-value="Title">
+                            ${title}
                         </td>
                         <td data-value="Description">
                             ${description}
@@ -96,10 +122,16 @@
                             `
                 }
                 // Close table.
-                tableData += `</table>`;
+                tableData += `</tbody></table>`;
+
+                // Bind data to bookList div.
+                document.getElementById('bookList').innerHTML = tableData;
+
+                // Log completion for debugging
+                console.log('Books loaded.')
             }
 
-            //
+            // Populates Selected Book card when ISBN is clicked.
             function anchorClicked(e) {
 
                 e.preventDefault();
@@ -109,11 +141,12 @@
                 let row = cell.parentElement;
 
                 let data = row.querySelectorAll("td");
+                console.log("this" + data);
 
                 let bookData = `<ul style="list-style-type: none;">`;
 
                 for (let field of data) {
-                    bookData += `<li><b>${field.dataset.value}`; // comeback to this
+                    bookData += `<li><b>${field.dataset.value}</b>: ${field.innerHTML}</li>`; // Grabs field title and HTML text within the field.
                 }
                 
                 // Bind bookData list to the HTML.
@@ -122,7 +155,16 @@
 
             function addISBNClickEvents() {
                 
+                // Variable to add click events.
                 let viewButtons = document.querySelectorAll("#bookTable tbody .isbn-link");
+                
+                // Loop to add click events to the viewButtons variable.
+                for (let index = 0; index < viewButtons.length; index++) {
+                    viewButtons[index].addEventListener("click", anchorClicked);
+                }
+
+                // Logging to make sure function completes.
+                console.log("View buttons added from NodeList.");
             }
 
 
