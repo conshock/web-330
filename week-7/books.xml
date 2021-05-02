@@ -1,6 +1,9 @@
-<!-- 
-    Comments
- -->
+<!--
+    Title: books.xml
+    Author: Conner Shockley
+    Date: 5/2/2021
+    Description: What-A-Book books data.
+-->
 
  <!-- Books data. -->
  <books>
