@@ -1,0 +1,14 @@
+/** 
+    Title. part2.css
+    Author: Conner Shockley
+    Date:4/25/2021
+    Description: Styling for What-A-Book Part 2.
+*/
+
+
+/* 
+    Remove bullet
+*/
+li {
+    list-style-type: none;
+}

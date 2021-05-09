@@ -8,10 +8,9 @@
 */
 
 // HTTP Client class.
-export class HttpClient
-{
-    async get(url, params = '')
-    {
+export class HttpClient {
+    
+    async get(url, params = '') {
         // New URL object.
         let urlObject = new URL(url);
 
@@ -19,7 +18,7 @@ export class HttpClient
         let paramsObject = new URLSearchParams(params);
         urlObject.search = paramsObject
 
-        const res = await fetch(url.toString(), {
+        const res = await fetch(urlObject.toString(), {
             method: "GET",
         })
 
