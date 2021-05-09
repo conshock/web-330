@@ -1,0 +1,279 @@
+<!--
+    Title: shockley-whatabook1.html
+    Author: Conner Shockley
+    Date: 4/30/2021
+    Description: What-A-Book application.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Header with links to the course Google fonts and stylesheets. -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>WEB 330 - Enterprise Javascript II</title>
+    
+    <link rel="stylesheet" href="../theme.css">
+    <link rel="stylesheet" href="../site.css">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+    <body class="light-theme">
+        <div id="container">
+
+            <!-- App title. -->
+            <div class="app-header">Welcome to the WhatABook, Part 1 App!</div>
+            <div class="assign-content">
+
+                <!-- Book Listing card. -->
+                <div class="card">
+                    <div class="card-title">Book Listing</div>
+                    <div class="card-content" id="bookList"></div>  
+                </div>
+
+                <!-- Link to homepage. -->
+                <a class="return-home" href="../index.html">Return</a>
+
+                <!-- Selected Book card. -->
+                <div class="card">
+                    <div class="card-title">Selected Book</div>
+                    <div class="card-content" id="selectedBook"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Theme and webpage scripts. -->
+        <script type="application/javascript" src="../theme.js"></script> 
+        <script type='module'>
+
+            // Import HTTP-client class.
+            import { HttpClient } from "./http-client.js";
+
+            // New http client object.
+            const http = new HttpClient();
+
+            // ISBNs array.
+            const isbns = [
+                '0345339681',
+                '0261103571',
+                '9780593099322',
+                '9780261102361',
+                '9780261102378',
+                '9780590302715',
+                '9780316769532',
+                '9780743273565',
+                '9780590405959'
+            ]
+
+            // Parameter object.
+            const params = {
+                "bibkeys": `ISBN: ${isbns.join(",")}`,
+                "format": "json",
+                "jscmd": "details"
+            };
+
+            // HTTP get function.
+            http.get("https://openlibrary.org/api/books", params).then(res => {
+                console.log(res);
+
+                document.getElementById("bookListing").innerHTML = buildHtmlString(res, "table");
+
+                addISBNClickEvents();
+            })
+            .catch(e => {
+                console.log(e);
+            })
+
+            // getBook function.
+            function getBook(e)
+            {
+                e.preventDefault();
+
+                let self = this;
+
+                let isbn = self.innerText;
+
+                let obj = {
+                    "bibkeys": `ISBN: ${isbns.join(",")}`,
+                    "format": "json",
+                    "jscmd": "details"
+                };
+                http.get("https://openlibrary.org/api/books", params).then(res => {
+                    console.log(res);
+
+                    document.getElementById("selectedBook").innerHTML = buildHtmlString(res, "ul");
+
+                    addISBNClickEvents();
+                })
+                .catch(e => {
+                    console.log(e);
+                });
+            }
+
+            function buildHtmlString(res, format)
+            {
+
+                tableString = `<table><tr><th>ISBN</th><th>Title</th><th>Description</th><th>Pages</th><th>Authors</th></tr>`;
+
+                ulString = '';
+
+                for (const key in res)
+                {
+
+                    if (res.hasOwnProperty(key)) {
+                        let authors = [];
+                        if (res[key].details.authors) {
+                            authors = res[key].details.authors.map(function(author) {
+                                return author.name;
+                            })
+                        }
+                        let bookDetails = res[key].details;
+                        let book = {
+                        isbn: bookDetails.isbn_13 ? bookDetails.isbn_13 : bookDetails.isbn_10,
+                        title: bookDetails.title, 
+                        description: bookDetails.subtitle ? bookDetails.subtitle : "N/A",
+                        pages: bookDetails.number_of_pages ? bookDetails.number_of_pages : "N/A",
+                        authors : authors.join(", ")
+                    } 
+
+                    ulString += `<li><b>ISBN:</b> ${book.isbn}</li><li><b>Title:</b> ${book.title}</li><li><b>Description:</b> ${book.description}</li>
+                    <li><b>Pages:</b> ${book.pages}</li><li><b>Authors:</b> ${book.authors}</li>`;
+
+                    tableString += `<tr><td><a href="#" class="isbn-link">${book.isbn}</a></td><td>${book.title}</td><td>${book.description}</td>
+                        <td>${book.pages}</td><td>${book.authors}</td></tr>`;
+                    }
+
+                
+                }
+                ulString += "</ul>";
+                tableString += "</table>";
+
+                return (format === "table") ? tableString : ulString;
+            }
+
+            // // XML data populates table on HTML document load.
+            // window.addEventListener('DOMContentLoaded', function(event) {
+            //     console.log('DOM fully loaded and parsed');
+
+            //     // Declare that the filename is books.xml.
+            //     let fileName = 'books.xml';
+
+            //     // Fetching books.xml.
+            //     fetch(fileName)
+            //     .then(res => res.text())
+            //     .then(data => {
+                    
+            //         let domParser = new DOMParser();
+            //         let xmlBooks = domParser.parseFromString(data, "text/xml")
+
+            //         // LoadBooks loads data from the XML file.
+            //         loadBooks(xmlBooks);
+
+            //         // AddISBNClickEvents adds click events to the ISBN links.
+            //         addISBNClickEvents();
+            //     })
+            // });
+
+            // // Function that loads books from the XML file into the table.
+            // function loadBooks(xml) {
+
+            //     // Declare books variable by pulling book from books in XML file.
+            //     let books = xml.getElementsByTagName("book");
+
+            //     // Initial table header.
+            //     let tableData = `
+            //     <table  id='bookTable' class='table'>
+            //         <thead>
+            //             <th>ISBN</th>
+            //             <th>Title</th>
+            //             <th>Description</th>
+            //             <th>Pages</th>
+            //             <th>Authors</th>
+            //         </thead>
+            //         <tbody>`;
+                
+            //     // For-of loop that populates the xml data into the table.
+            //     for (let book of books) {
+
+            //         let isbn = book.getElementsByTagName("isbn")[0].childNodes[0].nodeValue;
+            //         let title = book.getElementsByTagName("title")[0].childNodes[0].nodeValue;
+            //         let description = book.getElementsByTagName("description")[0].childNodes[0].nodeValue;
+            //         let pages = book.getElementsByTagName("pages")[0].childNodes[0].nodeValue;
+            //         let authors = book.getElementsByTagName("authors")[0].childNodes[0].nodeValue;
+
+            //         // Loops through this string and fills data from the XML file.
+            //         tableData += `
+            //         <tr>
+            //             <td data-value="ISBN">
+            //                 <a href="#" class="isbn-link">${isbn}</a>
+            //             </td>
+            //             <td data-value="Title">
+            //                 ${title}
+            //             </td>
+            //             <td data-value="Description">
+            //                 ${description}
+            //             </td>
+            //             <td data-value="Pages">
+            //                 ${pages}
+            //             </td>
+            //             <td data-value="Authors">
+            //                 ${authors}
+            //             </td>
+            //         </td>
+            //                 `
+            //     }
+            //     // Close table.
+            //     tableData += `</tbody></table>`;
+
+            //     // Bind data to bookList div.
+            //     document.getElementById('bookList').innerHTML = tableData;
+
+            //     // Log completion of function for debugging.
+            //     console.log('Books loaded.')
+            // }
+
+            // Populates Selected Book card when ISBN is clicked.
+            function anchorClicked(e) {
+
+                e.preventDefault();
+
+                let self = this;
+                let cell = self.parentElement;
+                let row = cell.parentElement;
+
+                let data = row.querySelectorAll("td");
+                console.log("this" + data);
+
+                let bookData = `<ul style="list-style-type: none;">`;
+
+                for (let field of data) {
+                    bookData += `<li><b>${field.dataset.value}</b>: ${field.innerHTML}</li>`; // Grabs field title and HTML text within the field.
+                }
+                
+                // Bind bookData list to the HTML.
+                document.getElementById('selectedBook').innerHTML = bookData;
+            }
+
+            function addISBNClickEvents() {
+                
+                // Variable to add click events.
+                let viewButtons = document.querySelectorAll("#bookTable tbody .isbn-link");
+                
+                // Loop to add click events to the viewButtons variable.
+                for (let index = 0; index < viewButtons.length; index++) {
+                    viewButtons[index].addEventListener("click", anchorClicked);
+                }
+
+                // Logging to make sure function completes.
+                console.log("View buttons added from NodeList.");
+            }
+
+
+        </script>
+
+    </body>
+</html>
